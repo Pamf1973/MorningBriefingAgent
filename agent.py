@@ -1,7 +1,7 @@
 import os
 from dotenv import load_dotenv
-from strands_agents import Agent, tool
-from strands_agents.models.litellm import LiteLLMModel
+from strands import Agent, tool
+from strands.models.litellm import LiteLLMModel
 
 # Load environment variables from .env
 load_dotenv()
@@ -9,8 +9,10 @@ load_dotenv()
 # Configure LiteLLMModel pointing at OpenRouter's API base
 model = LiteLLMModel(
     model_id="openrouter/tencent/hy3-preview:free",
-    api_key=os.getenv("OPENROUTER_API_KEY"),
-    api_base="https://openrouter.ai/api/v1"
+    params={
+        "api_key": os.getenv("OPENROUTER_API_KEY"),
+        "api_base": "https://openrouter.ai/api/v1"
+    }
 )
 
 @tool
